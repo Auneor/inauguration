@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Ajout de la coche "Personne importante" dans la vue formulaire contact -->
+    <record id="view_partner_form_inauguration" model="ir.ui.view">
+        <field name="name">res.partner.form.inauguration</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="is_important" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Filtre "Personnes importantes" dans la vue liste/kanban -->
+    <record id="view_res_partner_filter_inauguration" model="ir.ui.view">
+        <field name="name">res.partner.search.inauguration</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="before">
+                <filter
+                    string="Personnes importantes"
+                    name="important_persons"
+                    domain="[('is_important', '=', True)]"
+                />
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
